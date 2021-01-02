@@ -1,7 +1,7 @@
 {
-  "name": "rs_mail_service",
+  "name": "defipedia_mail_service",
   "version": "1.0.0",
-  "description": "A micro-serivce that handle SMTPs for researchcollective.io",
+  "description": "A micro-serivce that handle mailchimp subsription and SMTP for defipedia",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,6 +14,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mailchimp-api-v3": "^1.14.0",
     "nodemailer": "^6.4.10",
     "nodemon": "^2.0.4"
   }

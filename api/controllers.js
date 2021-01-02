@@ -50,6 +50,10 @@ const controllers = {
         // Message sent//
         console.log("Message sent: %s", mail.messageId, mail);
         return res.status(200).json(`Email sent succesfully to ${process.env.TO_EMAIL}`)
+    },
+    //function to add subscriber to mailchimp audience//
+    subscribe: async (req, res) => {
+      res.status(200).send('yay!!!')
     }
 }
 

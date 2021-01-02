@@ -5,6 +5,8 @@ module.exports = (server) => {
     server.route('/')
         .get(controllers.about)
     // sending mails from researchcollective.io contact to form to email//
-    server.route('/')
+    server.route('/send-mail')
         .post(controllers.sendMail)
+    server.route('/subscribe')
+        .post(controllers.subscribe)
 }
