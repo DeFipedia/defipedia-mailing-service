@@ -1,7 +1,4 @@
-const { default: axios } = require('axios')
-const { post } = require('request')
-const request = require('request')
-const properties = require('../package.json')
+const Mailchimp = require('mailchimp-api-v3')
 require('dotenv').config()
 
 const controllers = {
@@ -19,57 +16,20 @@ const controllers = {
       //extracting email fromm request//
       let {email} = req.body
 
-      let url = `https://us2.api.mailchimp.com/3.0/lists/${process.env.MAILCHIMP_AUDIENCE_ID}/`
-      
-      let data = {
-        members: [
-          {
-            email_address: email,
-            status: 'subscribed'
-          }
-          
-        ]
-      }
+      //mailchimp instance //
+      const mailchimp = new Mailchimp(process.env.MAILCHIMP_API_KEY)
 
-      let postData = JSON.stringify(data)
-
-      let options = {
-        url: url,
-        methods: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          'Authorization': `auth ${process.env.MAILCHIMP_API_KEY}`
-        },
-        body: postData
-      }
-
-      if(email){
-        request(options, (err, response, body) => {
-          if(err){
-            res.json({error: err})
-          }else{
-            res.status(200).json({message: 'Success'})
-          }
-        })
-      }else{
-        res.json({message: 'Failed'})
-      }
-      //if email is not empty, make post request to mailchimp//
-    //   if(email && email != ''){
-    //     axios.post(url,{
-    //       headers: {
-    //         Authorization: `auth ${process.env.MAILCHIMP_API_KEY}`
-    //       }
-    //     })
-    //     .then((response) => {
-    //       res.send(response)
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //     })
-    //   }else{
-    //     res.status(404).send({message: 'Failed'})
-    //   }
+      //making requst to mailchip for adding member//
+      mailchimp.post(`/lists/${process.env.MAILCHIMP_AUDIENCE_ID}/members/`, {
+        email_address: email,
+        status: 'subscribed'
+      })
+      .then(result => {
+        res.status(200).send({message: 'success'})
+      })
+      .catch(err => {
+        res.send({message: err})
+      })
     }
 }
 

@@ -12,8 +12,6 @@ const audienceID = process.env.AUDIENCE_ID
 const server = express()
 // setting up for cors//
 server.use(cors())
-//mailchimp instance //
-const mailchimp = new Mailchimp(mailchimpAPIKey)
 
 // parse various data//
 server.use(express.json())
